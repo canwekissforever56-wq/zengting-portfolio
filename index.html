@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZENG TING / PORTFOLIO</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- Plus Jakarta Sans & Inter Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Kalam:wght@300;400&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'Plus Jakarta Sans', 'PingFang SC', 'sans-serif'],
+            hand: ['Kalam', 'cursive', 'sans-serif'],
+          },
+          colors: {
+            neutral: {
+              50: '#F9F9FB',
+              100: '#F4F4F6',
+              200: '#EAEAEF',
+              800: '#1D1D1F',
+              900: '#111112',
+            },
+            zhipu: '#FF6D43',       /* 橙 */
+            mobvista: '#FFC72C',    /* 黄 */
+            medical: '#4A6CF7',     /* 蓝 */
+            honor: '#8E9AA6',       /* 灰 */
+            assets: '#38BDF8',      /* 青 */
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    .smooth-transition {
+      transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .grid-bg {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #F4F4F6;
+      border-radius: 99px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #D1D1D6;
+      border-radius: 99px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #AEAEB2;
+    }
+    /* Claymorphic depth styles mimicking image_7ae6c28eacbf3bfdf10e7024f49904f1 (1)_2.jpg */
+    .clay-depth {
+      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.12), inset 0 2px 4px rgba(255,255,255,0.4), inset 0 -4px 8px rgba(0,0,0,0.1);
+    }
+    .resin-pin-orange {
+      background: radial-gradient(circle at 30% 30%, #ff8b66, #ff4c1a);
+      box-shadow: 0 6px 12px -2px rgba(255, 76, 26, 0.3), inset -2px -2px 4px rgba(0,0,0,0.2), inset 2px 2px 4px rgba(255,255,255,0.6);
+    }
+    .resin-pin-blue {
+      background: radial-gradient(circle at 30% 30%, #7da2ff, #245aff);
+      box-shadow: 0 6px 12px -2px rgba(36, 90, 255, 0.3), inset -2px -2px 4px rgba(0,0,0,0.2), inset 2px 2px 4px rgba(255,255,255,0.6);
+    }
+    .resin-pin-purple {
+      background: radial-gradient(circle at 30% 30%, #cfa3ff, #822bfa);
+      box-shadow: 0 6px 12px -2px rgba(130, 43, 250, 0.3), inset -2px -2px 4px rgba(0,0,0,0.2), inset 2px 2px 4px rgba(255,255,255,0.6);
+    }
+    .section-sticky-header {
+      position: sticky;
+      top: 63px;
+      z-index: 30;
+      background: rgba(244, 244, 246, 0.88);
+      backdrop-filter: blur(14px);
+      border-radius: 0 0 18px 18px;
+      margin-bottom: 4.5rem !important;
+      box-shadow: 0 18px 30px -28px rgba(0, 0, 0, 0.35);
+    }
+    .section-sticky-header::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -2px;
+      height: 2px;
+      background: rgba(244, 244, 246, 0.94);
+      pointer-events: none;
+    }
+    .sticky-section {
+      scroll-margin-top: 140px;
+    }
+    .capabilities-motion-enabled .cap-card {
+      opacity: 0;
+      transform: translateY(-110px) scale(0.98);
+      transition: opacity 0.7s ease, transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .capabilities-motion-enabled.capabilities-in-view .cap-card {
+      opacity: 1;
+      transform: var(--cap-final-transform, translateY(0) rotate(0deg));
+    }
+    .capabilities-motion-enabled.capabilities-in-view .cap-card:hover {
+      transform: translateY(-8px) rotate(0deg);
+    }
+    .cap-card-1 { --cap-final-transform: translateY(0) rotate(0deg); transition-delay: 0.05s; }
+    .cap-card-2 { --cap-final-transform: translateY(0) rotate(0deg); transition-delay: 0.16s; }
+    .cap-card-3 { --cap-final-transform: translateY(0) rotate(0deg); transition-delay: 0.27s; }
+    .cap-card-4 { --cap-final-transform: translateY(0) rotate(0deg); transition-delay: 0.38s; }
+    .cap-card-5 { --cap-final-transform: translateY(0) rotate(0deg); transition-delay: 0.49s; }
+    @media (min-width: 768px) {
+      .cap-card-1 { --cap-final-transform: translateY(0) rotate(-3deg); }
+      .cap-card-2 { --cap-final-transform: translateY(0) rotate(2deg); }
+      .cap-card-3 { --cap-final-transform: translateY(0) rotate(-2deg); }
+      .cap-card-4 { --cap-final-transform: translateY(0) rotate(3deg); }
+      .cap-card-5 { --cap-final-transform: translateY(0) rotate(-1deg); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .capabilities-motion-enabled .cap-card,
+      .capabilities-motion-enabled.capabilities-in-view .cap-card {
+        opacity: 1;
+        transform: var(--cap-final-transform, none);
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body class="bg-neutral-50 text-neutral-800 font-sans antialiased grid-bg selection:bg-neutral-800 selection:text-white overflow-x-hidden">
+
+  <nav class="fixed top-0 left-0 w-full z-40 bg-white/70 backdrop-blur-md border-b border-neutral-100 px-6 py-4 md:px-12 flex justify-between items-center">
+    <div class="text-xs tracking-[0.2em] font-semibold text-neutral-900 uppercase">
+      ZENG TING <span class="text-neutral-400 font-normal">/ PORTFOLIO</span>
+    </div>
+    <div class="hidden md:flex space-x-8 text-xs tracking-wider font-medium text-neutral-500">
+      <a href="#home" class="hover:text-neutral-900 transition-colors">首页 / HOME</a>
+      <a href="#about" class="hover:text-neutral-900 transition-colors">关于我 / ABOUT</a>
+      <a href="#capabilities-section" class="hover:text-neutral-900 transition-colors">我的能力 / CAPABILITIES</a>
+      <a href="#experience-section" class="hover:text-neutral-900 transition-colors">我的经历 / EXPERIENCE</a>
+      <a href="#catalog-section" class="hover:text-neutral-900 transition-colors">我的作品 / WORKS</a>
+      <a href="#contact" class="hover:text-neutral-900 transition-colors">联系我 / CONTACT</a>
+    </div>
+    <a href="#contact" class="px-4 py-1.5 border border-neutral-900 text-xs tracking-widest uppercase hover:bg-neutral-900 hover:text-white transition-all rounded-full duration-300">
+      Get in Touch
+    </a>
+  </nav>
+
+  <!-- Section 1: 首页 / Hero Block -->
+  <section id="home" class="min-h-screen pt-28 pb-12 flex flex-col justify-between px-6 md:px-12 relative overflow-hidden">
+    <!-- 背景渐变光晕 -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-neutral-200/30 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <div class="w-full flex flex-col items-center text-center mt-6 z-10">
+      <!-- 极具呼吸感的药丸标签 -->
+      <span class="inline-flex items-center px-4 py-1.5 rounded-full text-[10px] tracking-[0.25em] font-semibold text-neutral-800 bg-white border border-neutral-200/80 uppercase shadow-sm mb-6 animate-fade-in">
+        2026 WORKS & EXPERIENCE COLLECTION
+      </span>
+
+      <!-- 极大、超细字重的主标 (对齐图 7ae6c28eacbf3bfdf10e7024f49904f1 (1)_2.jpg) -->
+      <h1 class="text-[72px] sm:text-[110px] md:text-[140px] lg:text-[160px] leading-none font-[200] tracking-tighter text-neutral-900 select-none">
+        Portfolio<span class="text-neutral-400">.</span>
+      </h1>
+
+      <p class="mt-4 text-xs sm:text-sm text-neutral-500 font-light tracking-[0.2em] max-w-2xl">
+        2025-2026年度 部分工作作品集
+      </p>
+    </div>
+
+    <!-- 像素级还原 fanned-out 扇形层叠物理文件夹组 (解决小矩形与大矩形连接处的缝隙问题) -->
+    <div class="w-full max-w-4xl mx-auto mt-20 mb-4 z-10 flex justify-center items-end h-[360px] relative origin-bottom scale-105 sm:scale-110 md:scale-115 translate-y-8">
+      <div class="relative w-full h-full flex justify-center items-end">
+        
+        <!-- FOLDER 01: 关于我 (极左侧 橙红款 - rotate -15deg) -->
+        <a href="#about" class="group absolute bottom-0 left-[8%] sm:left-[15%] w-[130px] sm:w-[170px] h-[170px] sm:h-[220px] smooth-transition origin-bottom -rotate-[15deg] -translate-x-12 hover:-translate-y-12 hover:-rotate-[20deg] z-10 hover:z-50 cursor-pointer">
+          <div class="relative w-full h-full">
+            <!-- Folder Ear (Ends exactly at top-[20px] to merge with the cover) -->
+            <div class="absolute top-[4px] left-4 w-12 sm:w-16 h-4 bg-zhipu rounded-t-lg -skew-x-12 smooth-transition group-hover:brightness-105 z-0"></div>
+            <!-- Sliding White Card inside -->
+            <div class="absolute bottom-2 left-4 right-4 h-[85%] bg-white rounded-xl shadow-md border border-neutral-100 p-3 flex flex-col justify-between transform translate-y-2 group-hover:-translate-y-14 smooth-transition z-10">
+              <div class="space-y-1">
+                <span class="text-[8px] font-mono font-bold text-neutral-400 block uppercase">About me</span>
+                <div class="w-full h-1 bg-neutral-100 rounded"></div>
+                <div class="w-4/5 h-1 bg-neutral-100 rounded"></div>
+              </div>
+              <span class="text-[9px] font-bold text-neutral-800">关于我 / About</span>
+            </div>
+            <!-- Front Cover (Overlaps the ear bottom to ensure connection) -->
+            <div class="absolute top-[12px] bottom-0 left-0 right-0 bg-gradient-to-tr from-zhipu to-orange-400 rounded-[20px] clay-depth flex flex-col justify-between p-4 text-white z-20">
+              <span class="font-mono text-xs font-semibold opacity-60">01</span>
+              <span class="font-sans text-xs sm:text-sm font-semibold tracking-wider text-center mt-auto mb-auto text-white opacity-75">关于我</span>
+              <div class="w-3 h-3 rounded-full bg-white/20 self-end"></div>
+            </div>
+          </div>
+        </a>
+
+        <!-- FOLDER 02: 我的能力 (左中 黄色款 - rotate -6deg) -->
+        <a href="#capabilities-section" class="group absolute bottom-0 left-[24%] sm:left-[28%] w-[130px] sm:w-[170px] h-[170px] sm:h-[220px] smooth-transition origin-bottom -rotate-[6deg] -translate-x-6 hover:-translate-y-12 hover:-rotate-[12deg] z-20 hover:z-50 cursor-pointer">
+          <div class="relative w-full h-full">
+            <!-- Folder Ear -->
+            <div class="absolute top-[4px] left-4 w-12 sm:w-16 h-4 bg-[#E8B115] rounded-t-lg -skew-x-12 smooth-transition group-hover:brightness-105 z-0"></div>
+            <!-- Sliding Index card -->
+            <div class="absolute bottom-2 left-4 right-4 h-[85%] bg-white rounded-xl shadow-md border border-neutral-100 p-3 flex flex-col justify-between transform translate-y-2 group-hover:-translate-y-14 smooth-transition z-10">
+              <div class="space-y-1.5">
+                <span class="text-[8px] font-mono font-bold text-neutral-400 block uppercase">Capabilities</span>
+                <div class="w-full h-0.5 bg-neutral-100"></div>
+                <div class="w-full h-0.5 bg-neutral-100"></div>
+              </div>
+              <span class="text-[9px] font-bold text-neutral-800">我的能力 / Skills</span>
+            </div>
+            <!-- Front Cover -->
+            <div class="absolute top-[12px] bottom-0 left-0 right-0 bg-gradient-to-tr from-[#FFC72C] to-[#FFE066] rounded-[20px] clay-depth flex flex-col justify-between p-4 text-neutral-900 z-20">
+              <span class="font-mono text-xs font-semibold opacity-60">02</span>
+              <span class="font-sans text-xs sm:text-sm font-semibold tracking-wider text-center mt-auto mb-auto text-white opacity-75">我的能力</span>
+              <div class="w-3 h-3 rounded-full bg-black/10 self-end"></div>
+            </div>
+          </div>
+        </a>
+
+        <!-- FOLDER 03: 我的经历 (中央 皇家蓝 - rotate 1deg - No '2025' or 'PART PROJECTS' taller slide) -->
+        <a href="#experience-section" class="group absolute bottom-0 left-[38%] sm:left-[40%] w-[140px] sm:w-[180px] h-[180px] sm:h-[230px] smooth-transition origin-bottom rotate-[1deg] hover:-translate-y-12 hover:rotate-[4deg] z-40 hover:z-50 cursor-pointer">
+          <div class="relative w-full h-full">
+            <!-- Folder Ear -->
+            <div class="absolute top-[4px] left-4 w-12 sm:w-16 h-4 bg-[#3B59D4] rounded-t-lg -skew-x-12 smooth-transition group-hover:brightness-105 z-0"></div>
+            <!-- Sliding Card (Standard size matching others) -->
+            <div class="absolute bottom-2 left-4 right-4 h-[85%] bg-white rounded-xl shadow-md border border-neutral-100 p-3 flex flex-col justify-between transform translate-y-2 group-hover:-translate-y-14 smooth-transition z-10">
+              <div class="space-y-1.5">
+                <span class="text-[8px] font-mono font-bold text-neutral-400 block uppercase">EXPERIENCE</span>
+                <div class="w-full h-0.5 bg-neutral-100"></div>
+                <div class="w-full h-0.5 bg-neutral-100"></div>
+              </div>
+              <span class="text-[9px] font-bold text-neutral-800">我的经历 / Experience</span>
+            </div>
+            <!-- Front Cover (No giant '2025' print) -->
+            <div class="absolute top-[12px] bottom-0 left-0 right-0 bg-gradient-to-tr from-[#244AD0] to-[#4A6CF7] rounded-[20px] clay-depth flex flex-col justify-between p-4 text-white z-20">
+              <span class="font-mono text-xs font-semibold opacity-60">03</span>
+              <span class="font-sans text-xs sm:text-sm font-semibold tracking-wider text-center mt-auto mb-auto text-white opacity-75">我的经历</span>
+              <div class="w-3 h-3 rounded-full bg-white/20 self-end"></div>
+            </div>
+          </div>
+        </a>
+
+        <!-- FOLDER 04: 我的作品 (右中 哑光灰 - rotate 6deg) -->
+        <a href="#catalog-section" class="group absolute bottom-0 right-[24%] sm:right-[28%] w-[130px] sm:w-[170px] h-[170px] sm:h-[220px] smooth-transition origin-bottom rotate-[6deg] translate-x-6 hover:-translate-y-12 hover:rotate-[12deg] z-30 hover:z-50 cursor-pointer">
+          <div class="relative w-full h-full">
+            <!-- Folder Ear -->
+            <div class="absolute top-[4px] left-4 w-12 sm:w-16 h-4 bg-[#788591] rounded-t-lg -skew-x-12 smooth-transition group-hover:brightness-105 z-0"></div>
+            <!-- Sliding Index Card -->
+            <div class="absolute bottom-2 left-4 right-4 h-[85%] bg-white rounded-xl shadow-md border border-neutral-100 p-3 flex flex-col justify-between transform translate-y-2 group-hover:-translate-y-14 smooth-transition z-10">
+              <div class="space-y-1.5">
+                <span class="text-[8px] font-mono font-bold text-neutral-400 block uppercase">Works</span>
+                <div class="w-full h-0.5 bg-neutral-100"></div>
+                <div class="w-3/4 h-0.5 bg-neutral-100"></div>
+              </div>
+              <span class="text-[9px] font-bold text-neutral-800">我的作品 / Works</span>
+            </div>
+            <!-- Front Cover -->
+            <div class="absolute top-[12px] bottom-0 left-0 right-0 bg-gradient-to-tr from-honor to-[#A8B4C0] rounded-[20px] clay-depth flex flex-col justify-between p-4 text-white z-20">
+              <span class="font-mono text-xs font-semibold opacity-60">04</span>
+              <span class="font-sans text-xs sm:text-sm font-semibold tracking-wider text-center mt-auto mb-auto text-white opacity-75">我的作品</span>
+              <div class="w-3 h-3 rounded-full bg-white/20 self-end"></div>
+            </div>
+          </div>
+        </a>
+
+        <!-- FOLDER 05: 联系我 (极右侧 青蓝款 - rotate 14deg) -->
+        <a href="#contact" class="group absolute bottom-0 right-[8%] sm:right-[15%] w-[130px] sm:w-[170px] h-[170px] sm:h-[220px] smooth-transition origin-bottom rotate-[14deg] translate-x-12 hover:-translate-y-12 hover:rotate-[20deg] z-20 hover:z-50 cursor-pointer">
+          <div class="relative w-full h-full">
+            <!-- Folder Ear -->
+            <div class="absolute top-[4px] left-4 w-12 sm:w-16 h-4 bg-[#23A7E0] rounded-t-lg -skew-x-12 smooth-transition group-hover:brightness-105 z-0"></div>
+            <!-- Sliding Index Card -->
+            <div class="absolute bottom-2 left-4 right-4 h-[85%] bg-white rounded-xl shadow-md border border-neutral-100 p-3 flex flex-col justify-between transform translate-y-2 group-hover:-translate-y-14 smooth-transition z-10">
+              <div class="space-y-1.5">
+                <span class="text-[8px] font-mono font-bold text-neutral-400 block uppercase">CONNECT</span>
+                <div class="w-full h-0.5 bg-neutral-100"></div>
+                <div class="w-full h-0.5 bg-neutral-100"></div>
+              </div>
+              <span class="text-[9px] font-bold text-neutral-800">联系我 / Contact</span>
+            </div>
+            <!-- Front Cover -->
+            <div class="absolute top-[12px] bottom-0 left-0 right-0 bg-gradient-to-tr from-[#38BDF8] to-[#7DD3FC] rounded-[20px] clay-depth flex flex-col justify-between p-4 text-white z-20">
+              <span class="font-mono text-xs font-semibold opacity-60">05</span>
+              <span class="font-sans text-xs sm:text-sm font-semibold tracking-wider text-center mt-auto mb-auto text-white opacity-75">联系我</span>
+              <div class="w-3 h-3 rounded-full bg-white/20 self-end"></div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: 关于我 / ABOUT ME (高保真还原 image_7f7c39.jpg 的排版) -->
+  <section id="about" class="sticky-section py-24 px-6 md:px-12 max-w-7xl mx-auto border-t border-neutral-100">
+    <!-- Section Header exactly matching reference -->
+    <div class="section-sticky-header flex justify-between items-baseline mb-12 border-b border-neutral-200/50 px-4 md:px-6 py-4">
+      <div class="flex items-baseline space-x-2">
+        <span class="text-xs font-mono text-neutral-400">01</span>
+        <h2 class="text-3xl md:text-4xl font-[300] tracking-tight text-neutral-900 font-sans">About me</h2>
+      </div>
+      <p class="text-xs tracking-wider text-neutral-400 font-light">My background, education, and credentials.</p>
+    </div>
+
+    <!-- 3-Column System Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      
+      <!-- Left Column: Photo & Short Intro -->
+      <div class="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left">
+        <!-- Photo Container with highlighted red circle overlay exactly like the image -->
+        <div class="relative w-[240px] sm:w-[280px] aspect-[4/5] rounded-[20px] overflow-hidden bg-neutral-100 border border-neutral-200/40 shadow-sm mb-6 group">
+          <img src="./images/imagesabout-photo.png" alt="曾婷" class="w-full h-full object-cover">
+        </div>
+        <!-- Short description beneath image -->
+        <div class="text-left max-w-[280px] space-y-2 mt-4">
+          <p class="text-xs font-mono text-neutral-400 font-semibold">Hi, ;)</p>
+          <p class="text-xs text-neutral-500 leading-relaxed font-light">
+            Here is Zeng Ting. Skilled at using a keen aesthetic sense for visual communication and driving content growth with a clear data-driven mindset.
+          </p>
+        </div>
+      </div>
+
+      <!-- Middle Column: Education & Profiles -->
+      <div class="lg:col-span-4 space-y-12 text-left">
+        <!-- EDUCATION -->
+        <div>
+          <h3 class="text-xs tracking-[0.2em] text-neutral-400 font-bold uppercase mb-6 pb-2 border-b border-neutral-100">EDUCATION</h3>
+          <div class="space-y-6">
+            <div>
+              <h4 class="text-sm font-semibold text-neutral-900">广东工业大学</h4>
+              <p class="text-xs text-neutral-400 mt-1">硕士 / 全日制 / 研究方向：交互设计</p>
+              <p class="text-[11px] text-neutral-300 font-mono mt-0.5">2023.09 - 2026.06</p>
+            </div>
+            <div>
+              <h4 class="text-sm font-semibold text-neutral-900">上海电机学院</h4>
+              <p class="text-xs text-neutral-400 mt-1">学士 / 全日制 / 专业：工业设计</p>
+              <p class="text-[11px] text-neutral-300 font-mono mt-0.5">2019.09 - 2023.06</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- PROFILE -->
+        <div>
+          <h3 class="text-xs tracking-[0.2em] text-neutral-400 font-bold uppercase mb-6 pb-2 border-b border-neutral-100">PROFILE</h3>
+          <div class="space-y-3 text-xs">
+            <div class="grid grid-cols-3 py-1">
+              <span class="text-neutral-400">Birth</span>
+              <span class="col-span-2 font-medium text-neutral-800">2001.06.01</span>
+            </div>
+            <div class="grid grid-cols-3 py-1">
+              <span class="text-neutral-400">Gender</span>
+              <span class="col-span-2 font-medium text-neutral-800">Female</span>
+            </div>
+            <div class="grid grid-cols-3 py-1">
+              <span class="text-neutral-400">City</span>
+              <span class="col-span-2 font-medium text-neutral-800">Guangzhou / Shenzhen</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Academic Honors & Languages -->
+      <div class="lg:col-span-4 space-y-12 text-left">
+        <!-- ACADEMIC HONORS -->
+        <div>
+          <h3 class="text-xs tracking-[0.2em] text-neutral-400 font-bold uppercase mb-6 pb-2 border-b border-neutral-100">ACADEMIC HONORS</h3>
+          <ul class="space-y-4 text-xs font-light text-neutral-600">
+            <li class="flex items-start">
+              <span class="w-1.5 h-1.5 bg-zhipu rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
+              <span>“两岸新锐设计竞赛·华灿奖” 总赛全国二等奖</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-1.5 h-1.5 bg-zhipu rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
+              <span>UXDA 国际用户体验创新大赛 全国三等奖</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-1.5 h-1.5 bg-zhipu rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
+              <span>未来设计师·全国高校数字艺术设计大赛 赛区一等奖</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-1.5 h-1.5 bg-zhipu rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
+              <span>蓝桥杯信息技术专业人才大赛 二等奖</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-1.5 h-1.5 bg-zhipu rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
+              <span>中国好创意大赛 二等奖</span>
+            </li>
+            <li class="flex items-start">
+              <span class="w-1.5 h-1.5 bg-zhipu rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
+              <span>广东工业大学研究生奖学金 一等奖</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- LANGUAGES -->
+        <div>
+          <h3 class="text-xs tracking-[0.2em] text-neutral-400 font-bold uppercase mb-6 pb-2 border-b border-neutral-100">LANGUAGES</h3>
+          <div class="space-y-2 text-xs">
+            <h4 class="font-semibold text-neutral-900">English</h4>
+            <p class="text-neutral-500 font-light leading-relaxed">
+              Good command of listening, speaking, reading, and writing.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 3: 我的能力 / MY CAPABILITIES (精雕细琢高保真还原 image_7f87c0.jpg 便签图钉连线) -->
+  <section id="capabilities-section" class="sticky-section py-24 bg-neutral-100/40 border-t border-b border-neutral-200/30 relative overflow-visible">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      
+      <!-- Section Header -->
+      <div class="section-sticky-header flex justify-between items-baseline mb-12 border-b border-neutral-200/50 px-4 md:px-6 py-4">
+        <div class="flex items-baseline space-x-2">
+          <span class="text-xs font-mono text-neutral-400">02</span>
+          <h2 class="text-3xl md:text-4xl font-[300] tracking-tight text-neutral-900">我的能力 / Capabilities</h2>
+        </div>
+        <p class="text-xs tracking-wider text-neutral-400 font-light">How to Build Elegant & Smart Interfaces</p>
+      </div>
+
+      <!-- Winding Pathway Pin Map matching image_7f87c0.jpg -->
+      <div class="relative min-h-[1400px] md:min-h-[1200px] lg:min-h-[1050px] py-12 flex flex-col items-center">
+        
+        <!-- Winding SVG Path background connecting pins -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none hidden md:block" viewBox="0 0 1200 1000" fill="none">
+          <path d="M600 50 C400 150, 200 250, 300 400 C400 550, 900 450, 900 650 C900 800, 450 850, 350 950" 
+                stroke="#D1D1D6" stroke-width="2.5" stroke-dasharray="8,8" stroke-linecap="round"/>
+        </svg>
+
+        <!-- Card 1: 用户研究与数据驱动 -->
+        <div class="cap-card cap-card-1 absolute md:top-[20px] md:left-[10%] lg:left-[18%] w-full max-w-[340px] bg-white rounded-3xl p-6 shadow-md border border-neutral-200/50 transform md:-rotate-3 hover:rotate-0 hover:-translate-y-2 hover:shadow-xl group z-10">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none">
+            <div class="w-4 h-4 rounded-full resin-pin-orange"></div>
+            <div class="w-1 h-3 bg-neutral-300 -mt-1 shadow-inner"></div>
+          </div>
+          <div class="text-xs font-mono font-bold text-orange-500 mb-3">01 / RESEARCH</div>
+          <h3 class="text-base font-bold text-neutral-900 mb-2">用户研究与数据驱动</h3>
+          <p class="text-xs text-neutral-500 font-light leading-relaxed">
+            擅长深度访谈、问卷调研及 SPSS 量化分析，系统挖掘用户痛点与需求层级。在 UXDA 项目中，通过医生访谈与建模产出精准用户画像与需求优先级，指导架构设计并获双铜奖。实习中也能结合行为数据定位高转化模式，实现策略量化验证。
+          </p>
+        </div>
+
+        <!-- Card 2: 全链路用户体验设计 -->
+        <div class="cap-card cap-card-2 absolute top-[280px] md:top-[120px] md:right-[8%] lg:right-[15%] w-full max-w-[340px] bg-white rounded-3xl p-6 shadow-md border border-neutral-200/50 transform md:rotate-2 hover:rotate-0 hover:-translate-y-2 hover:shadow-xl group z-10">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none">
+            <div class="w-4 h-4 rounded-full resin-pin-blue"></div>
+            <div class="w-1 h-3 bg-neutral-300 -mt-1 shadow-inner"></div>
+          </div>
+          <div class="text-xs font-mono font-bold text-blue-500 mb-3">02 / UX DESIGN</div>
+          <h3 class="text-base font-bold text-neutral-900 mb-2">全链路用户体验设计</h3>
+          <p class="text-xs text-neutral-500 font-light leading-relaxed">
+            具备从需求 analysis 到高保真界面输出的全链路体验设计能力。在实习期间，独立负责多类 AI 智能体及数据管理场景，通过用户测试迭代将关键操作效率提升近 70%。善于将复杂业务转化为清晰的任务流与界面逻辑。
+          </p>
+        </div>
+
+        <!-- Card 3: 视觉与 AIGC 融合 -->
+        <div class="cap-card cap-card-3 absolute top-[560px] md:top-[380px] md:left-[15%] lg:left-[22%] w-full max-w-[340px] bg-white rounded-3xl p-6 shadow-md border border-neutral-200/50 transform md:-rotate-2 hover:rotate-0 hover:-translate-y-2 hover:shadow-xl group z-10">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none">
+            <div class="w-4 h-4 rounded-full resin-pin-purple"></div>
+            <div class="w-1 h-3 bg-neutral-300 -mt-1 shadow-inner"></div>
+          </div>
+          <div class="text-xs font-mono font-bold text-purple-500 mb-3">03 / VISUAL & AIGC</div>
+          <h3 class="text-base font-bold text-neutral-900 mb-2">视觉与 AIGC 融合</h3>
+          <p class="text-xs text-neutral-500 font-light leading-relaxed">
+            兼具扎实的 UI 视觉功底与 AIGC 工具（Midjourney、Stable Diffusion 等）应用能力。在广告互动产品实习期间，负责游戏互动广告视觉全案，生成高质量素材并保持品牌风格一致，验证视觉对转化的正向影响。
+          </p>
+        </div>
+
+        <!-- Card 4: AI 编程与工具应用 -->
+        <div class="cap-card cap-card-4 absolute top-[840px] md:top-[500px] md:right-[12%] lg:right-[20%] w-full max-w-[340px] bg-white rounded-3xl p-6 shadow-md border border-neutral-200/50 transform md:rotate-3 hover:rotate-0 hover:-translate-y-2 hover:shadow-xl group z-10">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none">
+            <div class="w-4 h-4 rounded-full resin-pin-orange"></div>
+            <div class="w-1 h-3 bg-neutral-300 -mt-1 shadow-inner"></div>
+          </div>
+          <div class="text-xs font-mono font-bold text-orange-500 mb-3">04 / AI & CODING</div>
+          <h3 class="text-base font-bold text-neutral-900 mb-2">AI 编程与工具应用</h3>
+          <p class="text-xs text-neutral-500 font-light leading-relaxed">
+            具备借助 AI 编程工具（如 Cursor、VS Code 等）辅助开发的能力，能够通过自然语言与 AI 协作生成代码、调试报错，完成 Figma 插件等简单开发任务，将编程思维融入设计工具链。同时熟练运用 ChatGPT、Midjourney 等主流 AI 产品，全面提升设计全流程的产出效率。
+          </p>
+        </div>
+
+        <!-- Card 5: 跨职能协作与落地 -->
+        <div class="cap-card cap-card-5 absolute top-[1120px] md:top-[760px] md:left-[10%] lg:left-[28%] w-full max-w-[340px] bg-white rounded-3xl p-6 shadow-md border border-neutral-200/50 transform md:-rotate-1 hover:rotate-0 hover:-translate-y-2 hover:shadow-xl group z-10">
+          <div class="absolute -top-4 left-1/2 -translate-x-1/2 flex flex-col items-center pointer-events-none">
+            <div class="w-4 h-4 rounded-full resin-pin-blue"></div>
+            <div class="w-1 h-3 bg-neutral-300 -mt-1 shadow-inner"></div>
+          </div>
+          <div class="text-xs font-mono font-bold text-blue-500 mb-3">05 / DELIVERY</div>
+          <h3 class="text-base font-bold text-neutral-900 mb-2">跨职能协作与落地</h3>
+          <p class="text-xs text-neutral-500 font-light leading-relaxed">
+            擅长与产品、研发紧密协作，输出交互文档并跟进开发，通过设计走查确保体验高度还原。在实习项目中保障多端产品高质量上线，在 UXDA 大赛中顺利将研究成果转化为产品策略，展现从研究到落地的系统性推进能力。
+          </p>
+        </div>
+
+        <!-- Hand drawn design comment label on bottom-right -->
+        <div class="absolute bottom-2 md:bottom-[40px] right-[5%] md:right-[15%] flex items-center space-x-3 pointer-events-none select-none">
+          <div class="w-10 h-10 rounded-full border border-neutral-200 shadow overflow-hidden bg-white flex items-center justify-center">
+            <img src="./images/imagescapabilities-photo.png" class="w-full h-full object-cover rounded-full" alt="Mini headshot">
+          </div>
+          <div class="text-left">
+            <span class="font-hand text-base md:text-lg text-neutral-400 block -rotate-3">Your all-in-one design partner.</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 4: 我的经历 / MY EXPERIENCE (去除了左侧多余内容，布局清爽居中) -->
+  <section id="experience-section" class="sticky-section py-24 max-w-7xl mx-auto px-6 md:px-12">
+    <div class="section-sticky-header flex justify-between items-baseline mb-12 border-b border-neutral-200/50 px-4 md:px-6 py-4">
+      <div class="flex items-baseline space-x-2">
+        <span class="text-xs font-mono text-neutral-400">03</span>
+        <h2 class="text-3xl md:text-4xl font-[300] tracking-tight text-neutral-900">我的经历 / Experience</h2>
+      </div>
+      <p class="text-xs tracking-wider text-neutral-400 font-light">Commercial projects & professional internships.</p>
+    </div>
+
+    <!-- Right side elements made full width and beautifully spaced -->
+    <div class="space-y-12 max-w-4xl mx-auto">
+      <!-- Zhipu AI Intern -->
+      <div class="pb-10 border-b border-neutral-200/50">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+          <div>
+            <h4 class="text-base font-bold text-neutral-900">北京智谱华章科技股份有限公司</h4>
+            <p class="text-xs text-neutral-400 mt-1">UX设计实习生 | 智能体及企业级大模型管理场景</p>
+          </div>
+          <span class="text-xs font-mono text-neutral-400">2025.08 - 2026.01</span>
+        </div>
+        <ul class="text-xs sm:text-sm text-neutral-500 font-light space-y-2 list-disc list-inside">
+          <li>独立负责写作智能体、大模型微调业务及高维度企业数据 management 全案全流程体验。</li>
+          <li>重构多模态输入指令集组件库，并在项目中高质量交付 300+ 交互高保真场景。</li>
+        </ul>
+      </div>
+
+      <!-- Mobvista UI Intern -->
+      <div class="pb-10 border-b border-neutral-200/50">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+          <div>
+            <h4 class="text-base font-bold text-neutral-900">广州汇量科技有限公司 (MOBVISTA)</h4>
+            <p class="text-xs text-neutral-400 mt-1">UI设计实习生 | 互动广告与出海大创意链路</p>
+          </div>
+          <span class="text-xs font-mono text-neutral-400">2025.03 - 2025.06</span>
+        </div>
+        <ul class="text-xs sm:text-sm text-neutral-500 font-light space-y-2 list-disc list-inside">
+          <li>负责出海互动创意小游戏及高转换广告物料的界面架构、微动效视觉设计。</li>
+          <li>探索利用 AIGC (Midjourney / SD / Lora) 提效，量产符合特定物理一致性的视觉广告卡片。</li>
+        </ul>
+      </div>
+
+      <!-- UXDA System -->
+      <div>
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+          <div>
+            <h4 class="text-base font-bold text-neutral-900">智能医疗辅助诊断系统 (UXDA 大赛金牌核心方案)</h4>
+            <p class="text-xs text-neutral-400 mt-1">产品分析 / 全栈交互设计师 (铜奖 & 华为专项赛铜奖)</p>
+          </div>
+          <span class="text-xs font-mono text-neutral-400">2024.04 - 2024.06</span>
+        </div>
+        <ul class="text-xs sm:text-sm text-neutral-500 font-light space-y-2 list-disc list-inside">
+          <li>通过扎根理论与三级专家访谈，提炼 18 项核心临床专家输入阻塞，重塑门诊病历录入路径。</li>
+          <li>产出高低保真原型，验证在多级医生复杂系统下，关键交互错误容错率提升 40% 的优秀表现。</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 5: 我的作品 / MY PORTFOLIO -->
+  <section id="catalog-section" class="sticky-section py-14 md:py-16 px-6 md:px-12 max-w-7xl mx-auto border-t border-neutral-100 bg-neutral-50/50">
+    <div class="section-sticky-header flex justify-between items-baseline mb-12 border-b border-neutral-200/50 px-4 md:px-6 py-4">
+      <div class="flex items-baseline space-x-2">
+        <span class="text-xs font-mono text-neutral-400">04</span>
+        <h2 class="text-3xl md:text-4xl font-[300] tracking-tight text-neutral-900">我的作品 / Works Catalog</h2>
+      </div>
+      <p class="text-xs tracking-wider text-neutral-400 font-light">Tactile folder cards with interactive viewports.</p>
+    </div>
+
+    <!-- 4-Folder Deck Layout (Aligning to image_7eff80.png) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-3xl mx-auto relative px-4">
+      
+      <!-- ==================== Card 1: app及用户体验设计 (Matte White / Orange Folder with high contrast layout) ==================== -->
+      <div onclick="openMacModal('zhipu')" class="group relative bg-transparent h-[260px] md:h-[250px] lg:h-[270px] flex items-end justify-center cursor-pointer select-none">
+        <!-- 3D Layer 1: Folder Back Cover (Orange background) -->
+        <div class="absolute inset-x-2 bottom-0 h-[85%] bg-orange-500 rounded-b-[28px] rounded-tr-[28px] shadow-sm overflow-visible z-0 flex flex-col justify-between p-4 pb-12">
+          <!-- Folder Tab with perfectly smooth SVG concave transition exactly matching image_6fa5e5.png -->
+          <div class="absolute -top-[16px] left-0 w-[90px] h-[18px] bg-orange-500 rounded-t-[12px] flex items-end z-0">
+             <svg class="absolute bottom-0 -right-[12px] w-[12px] h-[12px] text-orange-500" viewBox="0 0 12 12" fill="currentColor"><path d="M0 0 V12 H12 C5.37258 12 0 6.62742 0 0 Z"/></svg>
+          </div>
+          <div class="flex justify-between items-start opacity-40 text-[9px] text-white font-mono font-bold">
+            <span>STEP_01</span>
+            <span>SAME_FREQ</span>
+          </div>
+        </div>
+
+        <!-- 3D Layer 2: Sliding White Document Card (Hover moves it up elegantly) -->
+        <div class="absolute bottom-10 left-8 right-8 h-[75%] bg-white rounded-2xl shadow-md border border-neutral-200/50 p-5 flex flex-col justify-between transform translate-y-6 group-hover:-translate-y-12 smooth-transition z-10">
+          <div class="space-y-2">
+            <div class="flex items-center space-x-2 mb-2">
+              <div class="w-2.5 h-2.5 rounded-full bg-orange-500"></div>
+              <span class="text-[9px] font-bold text-orange-500 tracking-wider uppercase font-mono">Discovery Draft</span>
+            </div>
+            <!-- Mock paper content lines -->
+            <div class="w-full h-1.5 bg-neutral-100 rounded-full"></div>
+            <div class="w-4/5 h-1.5 bg-neutral-100 rounded-full"></div>
+            <div class="w-1/2 h-1.5 bg-neutral-100 rounded-full"></div>
+          </div>
+          <!-- Mini diagram -->
+          <div class="border border-neutral-100 p-2 rounded-lg bg-neutral-50/50 flex items-center justify-between">
+            <span class="text-[8px] text-neutral-400 font-mono">zhipu_ai_ux.pdf</span>
+            <span class="text-[8px] px-1.5 py-0.5 bg-neutral-100 rounded text-neutral-500">4 Pages</span>
+          </div>
+        </div>
+
+        <!-- 3D Layer 3: Folder Front Cover (High Legibility Orange Front with Bold White Text) -->
+        <div class="absolute inset-x-2 bottom-0 h-[65%] bg-orange-500 border-t border-orange-400 rounded-b-[28px] rounded-tl-none rounded-tr-[28px] shadow-lg group-hover:shadow-xl smooth-transition flex flex-col justify-between p-5 z-20">
+          <div></div>
+          <h3 class="text-lg font-bold text-white tracking-wider text-center">
+            app及用户体验设计
+          </h3>
+        </div>
+      </div>
+
+      <!-- ==================== Card 2: B端ai平台设计 (Yellow / Orange Folder) ==================== -->
+      <div onclick="openMacModal('mobvista')" class="group relative bg-transparent h-[260px] md:h-[250px] lg:h-[270px] flex items-end justify-center cursor-pointer select-none">
+        <!-- 3D Layer 1: Folder Back Cover (Deep Blue) -->
+        <div class="absolute inset-x-2 bottom-0 h-[85%] bg-[#244AD0] rounded-b-[28px] rounded-tr-[28px] shadow-sm z-0 flex flex-col justify-between p-4 pb-12">
+          <div class="absolute -top-[16px] left-0 w-[90px] h-[18px] bg-[#244AD0] rounded-t-[12px] flex items-end">
+             <svg class="absolute bottom-0 -right-[12px] w-[12px] h-[12px] text-[#244AD0]" viewBox="0 0 12 12" fill="currentColor"><path d="M0 0 V12 H12 C5.37258 12 0 6.62742 0 0 Z"/></svg>
+          </div>
+          <div class="flex justify-between items-start opacity-40 text-[9px] text-white font-mono font-bold">
+            <span>STEP_02</span>
+            <span>B_END_AI</span>
+          </div>
+        </div>
+
+        <!-- 3D Layer 2: Sliding Papers (Diagonal hover up) -->
+        <div class="absolute bottom-12 left-10 right-10 h-[70%] bg-white rounded-xl shadow-sm border border-neutral-150 p-4 transform rotate-3 translate-y-6 group-hover:-translate-y-14 group-hover:rotate-6 smooth-transition z-10"></div>
+        <div class="absolute bottom-10 left-8 right-8 h-[75%] bg-white rounded-2xl shadow-md border border-neutral-200/50 p-5 flex flex-col justify-between transform -rotate-3 translate-y-6 group-hover:-translate-y-12 group-hover:-rotate-6 smooth-transition z-10">
+          <div class="space-y-2">
+            <div class="flex items-center space-x-2 mb-2">
+              <div class="w-2.5 h-2.5 rounded-full bg-[#FFC72C]"></div>
+              <span class="text-[9px] font-bold text-neutral-400 tracking-wider uppercase font-mono">Idea Sketching</span>
+            </div>
+            <div class="w-3/4 h-1.5 bg-neutral-100 rounded-full"></div>
+            <div class="w-5/6 h-1.5 bg-neutral-100 rounded-full"></div>
+          </div>
+          <div class="border border-neutral-100 p-2 rounded-lg bg-neutral-50/50 flex items-center justify-between">
+            <span class="text-[8px] text-neutral-400 font-mono">mobvista_AIGC.pdf</span>
+            <span class="text-[8px] px-1.5 py-0.5 bg-neutral-100 rounded text-neutral-500">4 Pages</span>
+          </div>
+        </div>
+
+        <!-- 3D Layer 3: Folder Front Cover (Yellow / Orange Flap) -->
+        <div class="absolute inset-x-2 bottom-0 h-[65%] bg-gradient-to-t from-mobvista to-[#FFD866] rounded-b-[28px] rounded-tl-none rounded-tr-[28px] shadow-md group-hover:shadow-xl smooth-transition flex flex-col justify-between p-5 z-20">
+          <div></div>
+          <h3 class="text-lg font-bold text-neutral-900 tracking-wider text-center">
+            B端ai平台设计
+          </h3>
+        </div>
+      </div>
+
+      <!-- ==================== Card 3: AI coding产品 (Translucent Sunset Red Folder) ==================== -->
+      <div onclick="openMacModal('medical')" class="group relative bg-transparent h-[260px] md:h-[250px] lg:h-[270px] flex items-end justify-center cursor-pointer select-none">
+        <!-- 3D Layer 1: Folder Back Cover (Deep rich orange-red) -->
+        <div class="absolute inset-x-2 bottom-0 h-[85%] bg-[#FF4D4D] rounded-b-[28px] rounded-tr-[28px] shadow-sm z-0 flex flex-col justify-between p-4 pb-12">
+          <div class="absolute -top-[16px] left-0 w-[90px] h-[18px] bg-[#FF4D4D] rounded-t-[12px] flex items-end">
+             <svg class="absolute bottom-0 -right-[12px] w-[12px] h-[12px] text-[#FF4D4D]" viewBox="0 0 12 12" fill="currentColor"><path d="M0 0 V12 H12 C5.37258 12 0 6.62742 0 0 Z"/></svg>
+          </div>
+          <div class="flex justify-between items-start opacity-40 text-[9px] text-white font-mono font-bold">
+            <span>STEP_03</span>
+            <span>AI_CODING</span>
+          </div>
+        </div>
+
+        <!-- 3D Layer 2: White Diagnostic Sheets Sliding Up -->
+        <div class="absolute bottom-10 left-8 right-8 h-[75%] bg-white rounded-2xl shadow-md border border-neutral-200/50 p-5 flex flex-col justify-between transform translate-y-6 group-hover:-translate-y-12 smooth-transition z-10">
+          <div class="space-y-2">
+            <div class="flex items-center space-x-2 mb-2">
+              <div class="w-2.5 h-2.5 rounded-full bg-rose-500"></div>
+              <span class="text-[9px] font-bold text-rose-500 tracking-wider uppercase font-mono">Clinical System</span>
+            </div>
+            <!-- Pulse rate drawing simulation -->
+            <svg class="w-full h-8 text-rose-300" viewBox="0 0 100 30" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M0 15 H40 L45 5 L50 25 L55 12 L60 15 H100" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="border border-neutral-100 p-2 rounded-lg bg-neutral-50/50 flex items-center justify-between">
+            <span class="text-[8px] text-neutral-400 font-mono">gynecology_UXDA.pdf</span>
+            <span class="text-[8px] px-1.5 py-0.5 bg-neutral-100 rounded text-neutral-500">4 Pages</span>
+          </div>
+        </div>
+
+        <!-- 3D Layer 3: Folder Front Cover (Translucent Acrylic frosted orange-red) -->
+        <div class="absolute inset-x-2 bottom-0 h-[65%] bg-gradient-to-t from-[#FF3333] to-[#FF6666] rounded-b-[28px] rounded-tl-none rounded-tr-[28px] shadow-md group-hover:shadow-xl smooth-transition flex flex-col justify-between p-5 z-20">
+          <div></div>
+          <h3 class="text-lg font-bold text-white tracking-wider text-center">
+            AI coding产品
+          </h3>
+        </div>
+      </div>
+
+      <!-- ==================== Card 4: UI设计 (Ocean Blue Folder with staggered cards) ==================== -->
+      <div onclick="openMacModal('honors')" class="group relative bg-transparent h-[260px] md:h-[250px] lg:h-[270px] flex items-end justify-center cursor-pointer select-none">
+        <!-- 3D Layer 1: Folder Back Cover (Soft sky blue) -->
+        <div class="absolute inset-x-2 bottom-0 h-[85%] bg-[#4BA8F8] rounded-b-[28px] rounded-tr-[28px] shadow-sm z-0 flex flex-col justify-between p-4 pb-12">
+          <div class="absolute -top-[16px] left-0 w-[90px] h-[18px] bg-[#4BA8F8] rounded-t-[12px] flex items-end">
+             <svg class="absolute bottom-0 -right-[12px] w-[12px] h-[12px] text-[#4BA8F8]" viewBox="0 0 12 12" fill="currentColor"><path d="M0 0 V12 H12 C5.37258 12 0 6.62742 0 0 Z"/></svg>
+          </div>
+          <div class="flex justify-between items-start opacity-40 text-[9px] text-white font-mono font-bold">
+            <span>STEP_04</span>
+            <span>SYSTEM_ASSETS</span>
+          </div>
+        </div>
+
+        <!-- 3D Layer 2: Staggered Index Cards Sliding Up -->
+        <div class="absolute bottom-14 left-12 right-12 h-[65%] bg-sky-100 rounded-xl shadow-xs border border-sky-200 transform translate-y-6 group-hover:-translate-y-16 smooth-transition z-8"></div>
+        <div class="absolute bottom-12 left-10 right-10 h-[70%] bg-sky-50 rounded-xl shadow-sm border border-sky-100 transform translate-y-6 group-hover:-translate-y-14 smooth-transition z-9"></div>
+        <div class="absolute bottom-10 left-8 right-8 h-[75%] bg-white rounded-2xl shadow-md border border-neutral-200/50 p-5 flex flex-col justify-between transform translate-y-6 group-hover:-translate-y-12 smooth-transition z-10">
+          <div class="space-y-2">
+            <div class="flex items-center space-x-2 mb-2">
+              <div class="w-2.5 h-2.5 rounded-full bg-[#3794E3]"></div>
+              <span class="text-[9px] font-bold text-neutral-400 tracking-wider uppercase font-mono">Standards</span>
+            </div>
+            <div class="w-full h-1.5 bg-neutral-100 rounded-full"></div>
+            <div class="w-2/3 h-1.5 bg-neutral-100 rounded-full"></div>
+          </div>
+          <div class="border border-neutral-100 p-2 rounded-lg bg-neutral-50/50 flex items-center justify-between">
+            <span class="text-[8px] text-neutral-400 font-mono">design_standards.pdf</span>
+            <span class="text-[8px] px-1.5 py-0.5 bg-neutral-100 rounded text-neutral-500">3 Pages</span>
+          </div>
+        </div>
+
+        <!-- 3D Layer 3: Folder Front Cover (Vibrant ocean blue) -->
+        <div class="absolute inset-x-2 bottom-0 h-[65%] bg-gradient-to-t from-[#3794E3] to-[#5CB0FF] rounded-b-[28px] rounded-tl-none rounded-tr-[28px] shadow-md group-hover:shadow-xl smooth-transition flex flex-col justify-between p-5 z-20">
+          <div></div>
+          <h3 class="text-lg font-bold text-white tracking-wider text-center">
+            UI设计
+          </h3>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Section 6: 联系我 / CONTACT ME (Footer) -->
+  <footer id="contact" class="bg-white border-t border-neutral-200/80 py-16 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-end">
+      <div>
+        <span class="text-xs tracking-[0.2em] text-neutral-400 font-bold uppercase block mb-4">CONNECT WITH ME</span>
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-neutral-900 mb-6">
+          开启交互创新可能
+        </h2>
+        <p class="text-xs sm:text-sm text-neutral-400 font-light max-w-md leading-relaxed">
+          期待同您共同打造充满感官享受、富有严密逻辑的好设计。
+        </p>
+      </div>
+
+      <div class="space-y-6 text-sm">
+        <div>
+          <p class="text-[10px] text-neutral-400 tracking-widest uppercase">EMAIL / 电子邮箱</p>
+          <a href="mailto:1779884551@qq.com" class="text-lg font-bold text-neutral-900 hover:text-zhipu smooth-transition">1779884551@qq.com</a>
+        </div>
+        <div class="border-t border-neutral-100 pt-4">
+          <p class="text-[10px] text-neutral-400 tracking-widest uppercase">PHONE / 电话合作</p>
+          <a href="tel:18383811626" class="text-lg font-bold text-neutral-900 hover:text-zhipu smooth-transition">18383811626</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-neutral-100 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-400">
+      <p>© 2026 Zeng Ting (曾婷). Crafted with minimalist luxury & extreme layout.</p>
+      <div class="flex space-x-6">
+        <a href="#about" class="hover:text-neutral-900 transition-colors">About</a>
+        <a href="#capabilities-section" class="hover:text-neutral-900 transition-colors">Capabilities</a>
+        <a href="#catalog-section" class="hover:text-neutral-900 transition-colors">Works</a>
+        <a href="#home" class="font-bold text-neutral-600 hover:text-neutral-900 transition-colors">Back to Top ↑</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== macOS Browser Window Popup (Mac 浏览器高拟真弹窗) ==================== -->
+  <div id="mac-modal" class="fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex items-center justify-center p-4 md:p-8 hidden opacity-0 transition-all duration-300">
+    <!-- Close trigger wrapper -->
+    <div class="absolute inset-0 cursor-default" onclick="closeMacModal()"></div>
+
+    <!-- macOS Window Structure -->
+    <div id="mac-window" class="relative bg-white w-full max-w-5xl rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-neutral-200/50 transform scale-95 transition-all duration-300 h-[85vh]">
+      
+      <!-- Window Title Bar -->
+      <div class="flex items-center justify-between px-4 py-3.5 bg-neutral-100 border-b border-neutral-200/60 select-none">
+        <!-- 3 Traffic Lights -->
+        <div class="flex space-x-2">
+          <button onclick="closeMacModal()" class="w-3.5 h-3.5 rounded-full bg-[#ff5f56] hover:bg-[#e04a42] flex items-center justify-center text-[8px] text-red-900 font-bold transition-all focus:outline-none">
+            ✕
+          </button>
+          <div class="w-3.5 h-3.5 rounded-full bg-[#ffbd2e]"></div>
+          <div class="w-3.5 h-3.5 rounded-full bg-[#27c93f]"></div>
+        </div>
+
+        <!-- Simulated Address Bar -->
+        <div class="flex-1 max-w-xl mx-4">
+          <div class="bg-white text-[11px] text-neutral-500 py-1 px-4 rounded-lg text-center border border-neutral-200/80 shadow-sm flex items-center justify-center space-x-2 truncate font-mono select-none">
+            <svg class="w-3 h-3 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            <span id="mac-url-text">./pdf_view/same_freq_app.pdf</span>
+          </div>
+        </div>
+
+        <!-- Window Actions -->
+        <div class="flex items-center space-x-3 text-neutral-400">
+          <svg class="w-4 h-4 cursor-pointer hover:text-neutral-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+          <svg class="w-4 h-4 cursor-pointer hover:text-neutral-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path></svg>
+        </div>
+      </div>
+
+      <!-- Window PDF Content Viewer -->
+      <div class="flex-1 flex overflow-hidden bg-neutral-100">
+        
+        <!-- Main PDF Scrollable Container -->
+        <div class="flex-1 overflow-y-auto p-3 md:p-4 custom-scroll select-none" id="pdf-scroll-view">
+          
+          <!-- Mock PDF Toolbar -->
+          <div class="hidden">
+            <span class="text-xs text-neutral-500" id="pdf-title-text">Project_Doc.pdf</span>
+            <div class="flex items-center space-x-4 text-xs text-neutral-600">
+              <button class="px-2 py-1 hover:bg-neutral-100 rounded transition-colors">放大 / Zoom</button>
+              <div class="w-px h-3 bg-neutral-200"></div>
+              <span>PDF Scrollable</span>
+            </div>
+          </div>
+
+          <!-- Rendered PDF pages -->
+          <div class="w-full mx-auto space-y-4" id="pdf-pages-container">
+            <!-- Loading Pages... -->
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- macOS Modal Controls Logic (JavaScript 控制代码) -->
+  <script>
+    // PDF Mock Content Database for projects
+    const pdfData = {
+      zhipu: {
+        url: "./pdf_view/same_freq_app.pdf",
+        title: "同频_App_产品体验分析全案.pdf",
+        pages: [
+          {
+            title: "Project Cover / 同频 App 体验设计全案",
+            section: "01 / 项目综述 & 立项背景",
+            bullets: [
+              "面向复杂 AIGC 输入流程的多模态对话降噪，构建高拟真认知负荷优化链路",
+              "独立沉淀 300+ 交互高保真页面方案，全链路开发还原度保障高达 95%"
+            ],
+            color: "from-orange-50 to-orange-100/30"
+          },
+          {
+            title: "Conversational Architecture / 多模态对话架构重构",
+            section: "02 / 交互流程与人机对话逻辑",
+            bullets: [
+              "针对写作、数据挖掘指令，开发基于 Markdown 的卡片指令集，省去频繁文本录入",
+              "规范了智能体的上下文检索和二次编辑操作，单次交互达成率提升 70%"
+            ],
+            color: "from-neutral-50 to-neutral-100"
+          },
+          {
+            title: "Design Tokens & UI Standards / 首个企业级大模型组件标准",
+            section: "03 / 全端组件模块与无障碍适配",
+            bullets: [
+              "主导输出包括多输入框状态、富文本扩展在内的 Design Tokens 系统，保障跨端一致性",
+              "统一问卷配置与响应式系统设计，推动协作能效倍增"
+            ],
+            color: "from-neutral-50 to-neutral-100"
+          },
+          {
+            title: "Verification & Metrics / 灰度验证与核心业务数据指标",
+            section: "04 / 用户测试及业务产出价值",
+            bullets: [
+              "经历两轮专家灰度验证，重点修复了会话历史切换的卡顿漏失痛点",
+              "配合产品经理顺利将企业高维度数据管理流程决策转化率提升 40%"
+            ],
+            color: "from-orange-50 to-orange-100/30"
+          }
+        ]
+      },
+      mobvista: {
+        url: "./pdf_view/b_end_ai_platform.pdf",
+        title: "B端_AI_创意辅助与工具流平台.pdf",
+        pages: [
+          {
+            title: "Project Cover / B端 AI 平台设计全案",
+            section: "01 / 项目立项与商业诉求",
+            bullets: [
+              "打破静态与动态互动广告屏障，基于竞品跳转热区设计极速吸引的视觉骨架",
+              "探究高曝光率游戏广告创意交互模板，利用 AIGC 实现内容渲染量产化"
+            ],
+            color: "from-amber-50 to-yellow-100/20"
+          },
+          {
+            title: "Data-Driven Visual Layouts / 数据驱动跳转布局",
+            section: "02 / 竞品分析与漏斗转化调优",
+            bullets: [
+              "结合海量试玩链路与用户跳出数据，在黄金 3 秒内对特定微观操作区增加动效拉扯",
+              "成功将试玩转化漏斗首层转化率拔高 15%"
+            ],
+            color: "from-neutral-50 to-neutral-100"
+          },
+          {
+            title: "AIGC Asset Delivery Pipeline / 多风格生成式流程闭环",
+            section: "03 / 工具链搭建与批量生成能效",
+            bullets: [
+              "打通 Lora 建模与 SD 图形渲染流程，批量导出全品类高精细度素材，减少 60% 手动重绘耗时",
+              "确保物理过渡平滑衔接，产出多态交互小游戏方案"
+            ],
+            color: "from-neutral-50 to-neutral-100"
+          },
+          {
+            title: "Commercial Output / 商业出海落地数据",
+            section: "04 / 面向出海买量市场的实操验证",
+            bullets: [
+              "方案已在多款热门互动素材中上线，平均次留率和付费转换率达到出海团队预期"
+            ],
+            color: "from-amber-50 to-yellow-100/20"
+          }
+        ]
+      },
+      medical: {
+        url: "./pdf_view/ai_coding_product.pdf",
+        title: "AI_Coding_产品诊断系统全案.pdf",
+        pages: [
+          {
+            title: "Project Cover / AI Coding 产品诊断系统设计全案",
+            section: "01 / 全案获奖与学术背书",
+            bullets: [
+              "斩获 UXDA 国际用户体验创新大赛全国铜奖、华为专项赛道铜奖",
+              "针对三甲门诊复杂、高噪的工作链路，深度定制多态决策与辅助输入方案"
+            ],
+            color: "from-blue-50 to-indigo-100/20"
+          },
+          {
+            title: "Grounded Theory Coding / 扎根理论研究及痛点重塑",
+            section: "02 / 三甲妇产科专家访谈定性分析",
+            bullets: [
+              "对深度访谈记录进行三级转录转码，精准梳理门诊高频阻滞与诊断流程卡顿",
+              "转化 18 项核心痛点，定位“数据读取”与“指令确认”的关键优先级"
+            ],
+            color: "from-neutral-50 to-neutral-100"
+          },
+          {
+            title: "Factor Analysis Modeling / 因子分析建立定量用户分层",
+            section: "03 / 精密量化模型支撑人机关系",
+            bullets: [
+              "基于大样本问卷开展聚类，科学细分出高年资、中青年门诊专家的诊断行为习惯",
+              "重塑了病历速录和病理多项并置的界面层级"
+            ],
+            color: "from-neutral-50 to-neutral-100"
+          },
+          {
+            title: "System Prototyping & Layout / 多态医疗系统信息降噪",
+            section: "04 / 面临复杂多级菜单 of 体验设计落地",
+            bullets: [
+              "利用“主副双栏”与“浮窗呼应”，保证信息呈现一目了然，实现诊断容错与低干扰体验"
+            ],
+            color: "from-blue-50 to-indigo-100/20"
+          }
+        ]
+      },
+      honors: {
+        url: "./pdf_view/ui_design_guidelines.pdf",
+        title: "UI_设计学术荣誉与实验性标准资产库.pdf",
+        pages: [
+          {
+            title: "Project Cover / 个人学术与系统规范设计资产",
+            section: "01 / 探索界面物理反馈边界",
+            bullets: [
+              "涵盖本科至研究生阶段 17+ 权威学科赛道特级、一等奖等多维度荣誉",
+              "提炼基于高回弹阻尼的微交互体系，探索下一代高保真体验资产"
+            ],
+            color: "from-slate-50 to-slate-200/40"
+          },
+          {
+            title: "Framer Motion Curves / Framer Motion 交互物理曲线",
+            section: "02 / 自然回弹与惯性阻尼 research",
+            bullets: [
+              "避免生硬的线性平滑，通过拟真物理库模拟出纸张般的反弹效果与拖拽吸附逻辑"
+            ],
+            color: "from-neutral-50 to-neutral-100"
+          },
+          {
+            title: "Responsive Matrix Guidelines / 跨多端响应式规范体系",
+            section: "03 / 无障碍适配与设备无缝跨越",
+            bullets: [
+              "严格贯彻无障碍（WCAG）对比度准则，提供跨手机、平板及车载大屏的灵活像素级响应"
+            ],
+            color: "from-neutral-50 to-neutral-100"
+          }
+        ]
+      }
+    };
+
+    async function renderPdfPages(data) {
+      const container = document.getElementById('pdf-pages-container');
+
+      if (!window.pdfjsLib) {
+        container.innerHTML = `
+          <div class="bg-white rounded-xl border border-neutral-200 shadow-sm p-8 text-center">
+            <p class="text-sm text-neutral-500 mb-4">PDF renderer failed to load.</p>
+            <a class="inline-flex items-center px-4 py-2 rounded-lg bg-neutral-900 text-white text-sm" href="${data.url}" target="_blank" rel="noopener">Open PDF</a>
+          </div>
+        `;
+        return;
+      }
+
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+      try {
+        const pdf = await pdfjsLib.getDocument(data.url).promise;
+        container.innerHTML = '';
+
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+          const page = await pdf.getPage(pageNumber);
+          const baseViewport = page.getViewport({ scale: 1 });
+          const availableWidth = Math.min(container.clientWidth || 960, 1180);
+          const scale = availableWidth / baseViewport.width;
+          const viewport = page.getViewport({ scale });
+          const outputScale = Math.min(window.devicePixelRatio || 1, 2);
+
+          const canvas = document.createElement('canvas');
+          const context = canvas.getContext('2d');
+          canvas.width = Math.floor(viewport.width * outputScale);
+          canvas.height = Math.floor(viewport.height * outputScale);
+          canvas.style.width = `${viewport.width}px`;
+          canvas.style.height = `${viewport.height}px`;
+          canvas.className = 'block w-full h-auto bg-white';
+          context.setTransform(outputScale, 0, 0, outputScale, 0, 0);
+
+          const pageFrame = document.createElement('div');
+          pageFrame.className = 'w-full overflow-hidden rounded-xl bg-white border border-neutral-200 shadow-sm';
+          pageFrame.appendChild(canvas);
+          container.appendChild(pageFrame);
+
+          await page.render({ canvasContext: context, viewport }).promise;
+        }
+      } catch (error) {
+        container.innerHTML = `
+          <div class="bg-white rounded-xl border border-neutral-200 shadow-sm p-8 text-center">
+            <p class="text-sm text-neutral-500 mb-4">PDF could not be loaded. Please check the file path.</p>
+            <a class="inline-flex items-center px-4 py-2 rounded-lg bg-neutral-900 text-white text-sm" href="${data.url}" target="_blank" rel="noopener">Open PDF</a>
+          </div>
+        `;
+      }
+    }
+
+    // Open Modal with Smooth Animation
+    function openMacModal(projectKey) {
+      const modal = document.getElementById('mac-modal');
+      const windowEl = document.getElementById('mac-window');
+      const data = pdfData[projectKey] || pdfData['zhipu'];
+
+      // Populate MacOS UI Header Info
+      document.getElementById('mac-url-text').innerText = data.url;
+      document.getElementById('pdf-title-text').innerText = data.title;
+
+      // Render the PDF pages directly instead of using the browser PDF viewer.
+      const container = document.getElementById('pdf-pages-container');
+      container.innerHTML = `
+        <div class="bg-white rounded-xl border border-neutral-200 shadow-sm p-8 text-center text-sm text-neutral-500">
+          Loading PDF...
+        </div>
+      `;
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        windowEl.classList.remove('scale-95');
+        renderPdfPages(data);
+      }, 50);
+      document.getElementById('pdf-scroll-view').scrollTop = 0;
+      return;
+
+      data.pages.forEach((page, index) => {
+        const pageHtml = `
+          <div class="bg-gradient-to-tr ${page.color} bg-white rounded-2xl p-8 sm:p-12 border border-neutral-200 shadow-md min-h-[480px] flex flex-col justify-between relative overflow-hidden group/page">
+            <span class="absolute top-4 right-6 text-xs text-neutral-300 font-mono select-none">PAGE 0${index + 1} / 0${data.pages.length}</span>
+            <div>
+              <p class="text-[10px] tracking-widest text-neutral-400 font-bold uppercase mb-4">${page.section}</p>
+              <h2 class="text-xl sm:text-2xl font-bold text-neutral-900 leading-tight mb-8">${page.title}</h2>
+              <ul class="space-y-4">
+                ${page.bullets.map(bullet => `
+                  <li class="flex items-start text-xs sm:text-sm text-neutral-600 font-light leading-relaxed">
+                    <span class="w-1.5 h-1.5 rounded-full bg-neutral-400 mr-3 mt-2 flex-shrink-0"></span>
+                    <span>${bullet}</span>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+            
+            <!-- Bottom Slide Watermark -->
+            <div class="border-t border-neutral-200/50 pt-6 mt-8 flex justify-between items-center text-[10px] text-neutral-400">
+              <span>曾婷 ZENG TING · 交互设计作品集</span>
+              <span class="font-mono">CONFIDENTIAL & PATENT PENDING</span>
+            </div>
+          </div>
+        `;
+        container.innerHTML += pageHtml;
+      });
+
+      // Show Modal
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        windowEl.classList.remove('scale-95');
+      }, 50);
+
+      // Scroll to top of PDF view area
+      document.getElementById('pdf-scroll-view').scrollTop = 0;
+    }
+
+    // Close Modal
+    function closeMacModal() {
+      const modal = document.getElementById('mac-modal');
+      const windowEl = document.getElementById('mac-window');
+
+      modal.classList.add('opacity-0');
+      windowEl.classList.add('scale-95');
+
+      setTimeout(() => {
+        modal.classList.add('hidden');
+      }, 300);
+    }
+
+    // Esc Key listener to close modal
+    document.addEventListener('keydown', function(event) {
+      if (event.key === "Escape") {
+        closeMacModal();
+      }
+    });
+
+    // Experience type labels
+    const experienceHeadings = document.querySelectorAll('#experience-section h4');
+    const experienceLabels = ['\u5b9e\u4e60\u7ecf\u5386', '\u5b9e\u4e60\u7ecf\u5386', '\u9879\u76ee\u7ecf\u5386'];
+    experienceHeadings.forEach((heading, index) => {
+      const labelText = experienceLabels[index];
+      if (!labelText || heading.parentElement?.classList.contains('experience-title-row')) return;
+
+      const row = document.createElement('div');
+      row.className = 'experience-title-row flex flex-wrap items-center gap-2';
+
+      const label = document.createElement('span');
+      label.className = 'text-[10px] text-neutral-400 font-medium tracking-wider';
+      label.textContent = labelText;
+
+      heading.parentNode.insertBefore(row, heading);
+      row.appendChild(label);
+      row.appendChild(heading);
+    });
+
+    // Capabilities section scroll reveal
+    const capabilitiesSection = document.getElementById('capabilities-section');
+    if (capabilitiesSection) {
+      capabilitiesSection.classList.add('capabilities-motion-enabled');
+      const capabilitiesObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            capabilitiesSection.classList.add('capabilities-in-view');
+            capabilitiesObserver.unobserve(capabilitiesSection);
+          }
+        });
+      }, {
+        threshold: 0.22,
+        rootMargin: '-80px 0px -20% 0px'
+      });
+      capabilitiesObserver.observe(capabilitiesSection);
+    }
+  </script>
+
+</body>
+</html>
