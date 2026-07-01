@@ -100,6 +100,92 @@
     .sticky-section {
       scroll-margin-top: 140px;
     }
+    .motion-practice-card {
+      height: 320px;
+      transition: height 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .motion-practice-card.motion-folder-open {
+      height: 510px;
+    }
+    .motion-practice-card .motion-folder-back {
+      height: 272px !important;
+    }
+    .motion-practice-card .motion-folder-sheet {
+      height: 240px !important;
+    }
+    .motion-practice-card .motion-folder-front {
+      height: 208px !important;
+    }
+    .motion-gif-card {
+      opacity: 0;
+      width: 190px;
+      transform: translate(-50%, 230px) scale(0.72) rotate(0deg);
+      transition: opacity 0.55s ease, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+    .motion-folder-part {
+      transition: opacity 0.45s ease, transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .motion-folder-open .motion-folder-back,
+    .motion-folder-open .motion-folder-front {
+      transform: translateY(0);
+    }
+    .motion-folder-open .motion-folder-sheet {
+      opacity: 0;
+      transform: translate(-50%, 0);
+    }
+    .motion-folder-open .motion-gif-card {
+      opacity: 1;
+    }
+    .motion-folder-open .motion-gif-card:nth-child(1) {
+      transform: translate(calc(-50% - 315px), 8px) rotate(-7deg);
+      transition-delay: 0s;
+    }
+    .motion-folder-open .motion-gif-card:nth-child(2) {
+      transform: translate(calc(-50% - 105px), -16px) rotate(4deg);
+      transition-delay: 0s;
+    }
+    .motion-folder-open .motion-gif-card:nth-child(3) {
+      transform: translate(calc(-50% + 105px), -16px) rotate(-4deg);
+      transition-delay: 0s;
+    }
+    .motion-folder-open .motion-gif-card:nth-child(4) {
+      transform: translate(calc(-50% + 315px), 8px) rotate(7deg);
+      transition-delay: 0s;
+    }
+    @media (max-width: 767px) {
+      .motion-practice-card {
+        height: 320px;
+      }
+      .motion-practice-card.motion-folder-open {
+        height: 760px;
+      }
+      .motion-gif-card {
+        width: min(42vw, 168px);
+      }
+      .motion-folder-open .motion-folder-sheet {
+        opacity: 0;
+        transform: translate(-50%, 0);
+      }
+      .motion-folder-open .motion-gif-card:nth-child(1) {
+        transform: translate(calc(-50% - min(23vw, 92px)), 8px) rotate(-2deg);
+      }
+      .motion-folder-open .motion-gif-card:nth-child(2) {
+        transform: translate(calc(-50% + min(23vw, 92px)), 8px) rotate(2deg);
+      }
+      .motion-folder-open .motion-gif-card:nth-child(3) {
+        transform: translate(calc(-50% - min(23vw, 92px)), 208px) rotate(2deg);
+      }
+      .motion-folder-open .motion-gif-card:nth-child(4) {
+        transform: translate(calc(-50% + min(23vw, 92px)), 208px) rotate(-2deg);
+      }
+    }
+    @media (min-width: 768px) {
+      .motion-folder-open .motion-folder-back,
+      .motion-folder-open .motion-folder-front {
+        transform: translateX(-50%);
+      }
+    }
     .capabilities-motion-enabled .cap-card {
       opacity: 0;
       transform: translateY(-110px) scale(0.98);
@@ -1128,6 +1214,13 @@
       document.getElementById('pdf-scroll-view').scrollTop = 0;
     }
 
+    function toggleMotionFolder() {
+      const folder = document.getElementById('motion-practice-folder');
+      if (folder) {
+        folder.classList.toggle('motion-folder-open');
+      }
+    }
+
     // Close Modal
     function closeMacModal() {
       const modal = document.getElementById('mac-modal');
@@ -1166,6 +1259,64 @@
       row.appendChild(label);
       row.appendChild(heading);
     });
+
+    // Append the motion-practice GIF folder to Works Catalog.
+    const catalogGrid = document.querySelector('#catalog-section .grid');
+    if (catalogGrid && !document.getElementById('motion-practice-folder')) {
+      catalogGrid.insertAdjacentHTML('beforeend', `
+        <div id="motion-practice-folder" onclick="toggleMotionFolder()" class="motion-practice-card group relative bg-transparent md:col-span-2 flex items-end justify-center cursor-pointer select-none">
+          <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[280px] pointer-events-none z-10">
+            <div class="motion-gif-card absolute left-1/2 top-4 overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-lg p-2">
+              <img src="./motion_gifs/motion_1.gif" alt="Motion practice 1" class="w-full aspect-[4/3] object-cover rounded-xl bg-neutral-100">
+              <p class="mt-2 text-[10px] font-mono text-neutral-400">MOTION_01.gif</p>
+            </div>
+            <div class="motion-gif-card absolute left-1/2 top-4 overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-lg p-2">
+              <img src="./motion_gifs/motion_2.gif" alt="Motion practice 2" class="w-full aspect-[4/3] object-cover rounded-xl bg-neutral-100">
+              <p class="mt-2 text-[10px] font-mono text-neutral-400">MOTION_02.gif</p>
+            </div>
+            <div class="motion-gif-card absolute left-1/2 top-4 overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-lg p-2">
+              <img src="./motion_gifs/motion_3.gif" alt="Motion practice 3" class="w-full aspect-[4/3] object-cover rounded-xl bg-neutral-100">
+              <p class="mt-2 text-[10px] font-mono text-neutral-400">MOTION_03.gif</p>
+            </div>
+            <div class="motion-gif-card absolute left-1/2 top-4 overflow-hidden rounded-2xl bg-white border border-neutral-200 shadow-lg p-2">
+              <img src="./motion_gifs/motion_4.gif" alt="Motion practice 4" class="w-full aspect-[4/3] object-cover rounded-xl bg-neutral-100">
+              <p class="mt-2 text-[10px] font-mono text-neutral-400">MOTION_04.gif</p>
+            </div>
+          </div>
+          <div class="motion-folder-part motion-folder-back absolute inset-x-2 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-[360px] bottom-0 h-[85%] bg-[#6B7280] rounded-b-[28px] rounded-tr-[28px] shadow-sm z-0 flex flex-col justify-between p-4 pb-12">
+            <div class="absolute -top-[16px] left-0 w-[90px] h-[18px] bg-[#6B7280] rounded-t-[12px] flex items-end">
+              <svg class="absolute bottom-0 -right-[12px] w-[12px] h-[12px] text-[#6B7280]" viewBox="0 0 12 12" fill="currentColor"><path d="M0 0 V12 H12 C5.37258 12 0 6.62742 0 0 Z"/></svg>
+            </div>
+            <div class="flex justify-between items-start opacity-40 text-[9px] text-white font-mono font-bold">
+              <span>STEP_05</span>
+              <span>MOTION_GIF</span>
+            </div>
+          </div>
+          <div class="motion-folder-part motion-folder-sheet absolute bottom-10 left-8 right-8 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-[300px] h-[75%] bg-white rounded-2xl shadow-md border border-neutral-200/50 p-5 flex flex-col justify-between transform translate-y-6 group-hover:-translate-y-12 smooth-transition z-10">
+            <div class="space-y-2">
+              <div class="flex items-center space-x-2 mb-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-neutral-500"></div>
+                <span class="text-[9px] font-bold text-neutral-500 tracking-wider uppercase font-mono">Looping Motion</span>
+              </div>
+              <div class="grid grid-cols-4 gap-1.5">
+                <div class="aspect-square rounded bg-neutral-100"></div>
+                <div class="aspect-square rounded bg-neutral-200"></div>
+                <div class="aspect-square rounded bg-neutral-100"></div>
+                <div class="aspect-square rounded bg-neutral-200"></div>
+              </div>
+            </div>
+            <div class="border border-neutral-100 p-2 rounded-lg bg-neutral-50/50 flex items-center justify-between">
+              <span class="text-[8px] text-neutral-400 font-mono">motion_practice.gif</span>
+              <span class="text-[8px] px-1.5 py-0.5 bg-neutral-100 rounded text-neutral-500">4 GIFs</span>
+            </div>
+          </div>
+          <div class="motion-folder-part motion-folder-front absolute inset-x-2 md:inset-x-auto md:left-1/2 md:-translate-x-1/2 md:w-[360px] bottom-0 h-[65%] bg-gradient-to-t from-[#4B5563] to-[#9CA3AF] rounded-b-[28px] rounded-tl-none rounded-tr-[28px] shadow-md group-hover:shadow-xl smooth-transition flex flex-col justify-between p-5 z-20">
+            <div></div>
+            <h3 class="text-lg font-bold text-white tracking-wider text-center">\u52a8\u6548\u7ec3\u4e60</h3>
+          </div>
+        </div>
+      `);
+    }
 
     // Capabilities section scroll reveal
     const capabilitiesSection = document.getElementById('capabilities-section');
